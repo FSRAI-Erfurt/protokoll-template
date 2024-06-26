@@ -33,8 +33,8 @@ build:
 # build the latex document twice to ensure that all references are resolved
 # this is a wierd quirk of latex as packages like toc and hyperref need to be
 # run twice to resolve all references and links
-> $(LATEX) -output-directory=$(BUILD_DIR) $(LATEX_FILE) > /dev/null 
-> $(LATEX) -output-directory=$(BUILD_DIR) $(LATEX_FILE) > /dev/null
+> $(LATEX) -output-directory=$(BUILD_DIR) $(LATEX_FILE) 
+> $(LATEX) -output-directory=$(BUILD_DIR) $(LATEX_FILE) 
 
 #HELP: Cleans the build directory
 clean:
