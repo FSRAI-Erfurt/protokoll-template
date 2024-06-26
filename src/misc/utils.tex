@@ -1,0 +1,76 @@
+% utils.tex
+% Meta Information
+\newcommand{\where}{}
+\newcommand{\recorder}{}
+\newcommand{\chair}{}
+\newcommand{\meetingDate}{}
+\newcommand{\meetingStartTime}{}
+\newcommand{\meetingEndTime}{}
+\newcommand{\meetingNextTime}{}
+\newcommand{\meetingNextDate}{}
+\newcommand{\meetingNext}{\meetingNextDate, \meetingNextTime}
+\newcommand{\meetingAttendence}{}
+\newcommand{\meetingAttendenceMax}{}
+
+% set Meta Information
+\newcommand{\setWhere}      [1]{\renewcommand{\where}{#1}}
+\newcommand{\setDate}       [1]{\renewcommand{\meetingDate}{#1}}
+\newcommand{\setRecorder}   [1]{\renewcommand{\recorder}{#1}}
+\newcommand{\setChair}      [1]{\renewcommand{\chair}{#1}}
+\newcommand{\setStartTime}  [1]{\renewcommand{\meetingStartTime}{#1}}
+\newcommand{\setEndTime}    [1]{\renewcommand{\meetingEndTime}{#1}}
+\newcommand{\setNextTime}   [1]{\renewcommand{\meetingNextTime}{#1}}
+\newcommand{\setNextDate}   [1]{\renewcommand{\meetingNextDate}{#1}}
+\newcommand{\setAttendence} [1]{\renewcommand{\meetingAttendence}{#1}}
+\newcommand{\setAttendenceMax} [1]{\renewcommand{\meetingAttendenceMax}{#1}}
+
+% quorum: beschlussfähig or nicht beschlussfähig
+% beschlussfähig: meetingAttendence > meetingAttendenceMax / 2
+\newcommand{\quorum}{
+    \ifnum\meetingAttendence>\meetingAttendenceMax/2
+        beschlussfähig
+    \else
+        nicht beschlussfähig
+    \fi
+}
+
+% Topics
+\newcounter{topiccounter}
+\newcommand{\addTopic}[1]{
+    \stepcounter{topiccounter}
+    \addsec{TOP \arabic{topiccounter} - #1}
+}
+
+% Title
+\newcommand{\makeTitle}{
+  \section*{\centering\huge Fachschaftsratssitzung am \meetingDate}
+  \vspace{0.5cm}
+}
+
+% Preamble
+\newcommand{\makePreamble}{
+    \begin{multicols}{2}
+        Datum: \meetingDate \\
+        Ort: \where \\
+        Sitzungsleitung: \chair \\
+        Offizieller Start: \meetingStartTime \\
+        Offizielles Ende: \meetingEndTime \\
+        Nächste Sitzung: \meetingNext
+    \end{multicols}
+}
+
+% Postamble
+\newcommand{\makePostamble}{
+    \vspace{2.5cm}
+    \begin{spacing}{0.3}
+    \noindent\rule[1ex]{\textwidth}{1pt}
+    \begin{multicols}{2}
+        Unterschrift, Datum \\
+        Protokollant*in \\
+        Unterschrift, Datum \\
+        Sprecher*in
+    \end{multicols}
+    \end{spacing}
+}
+
+

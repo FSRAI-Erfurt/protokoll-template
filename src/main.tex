@@ -1,0 +1,51 @@
+% !TeX spellcheck = de-DE
+\documentclass[
+appendixprefix=true,
+a4paper,                    % Papierformat A4
+11pt,                       % Schriftgröße 11pt
+oneside,                    % oneside - twoside
+parskip=half-,              % Abstand nach Absatz
+]{scrartcl}
+
+\input{src/misc/preamble}
+\input{src/misc/utils}
+\input{src/misc/attendence}
+
+% hier bitte die Daten der Sitzung eintragen
+\input{src/data}
+
+% Title Page.
+\begin{document}
+  \makeTitle
+  \makePreamble
+  \tableofcontents
+
+  % Adding attendees
+
+  % Generating attendance tables
+  \makeAttendance
+
+	\newpage
+
+  % Formalia
+  \addTopic{Formalia}
+  \begin{itemize}
+    \item {Die Sitzung wird um \textbf{\meetingStartTime \space Uhr} von \textbf{\chair} eröffnet.}
+    \item {Festlegung Protokollant*in: \\ \\
+      \textbf{\recorder} übernimmt die Protokollführung.}
+    \item {Beschlussfähigkeit Feststellen: \\ \\
+      Durch \textbf{\chair} wird festgestellt, dass
+      \textbf{\meetingAttendence} von \textbf{\meetingAttendenceMax}
+      stimmberechtigten FsR-Mitgliedern anwesend sind, somit \textbf{\quorum .}}
+  \end{itemize}
+
+  \input{src/protocol}
+
+  % Schlusswort
+  \addTopic{Schlusswort}
+  \begin{itemize}
+    \item {Die nächste Sitzung findet am \textbf{\meetingNext} statt.}
+    \item {Die Sitzung wird um \textbf{\meetingEndTime} von \textbf{\chair} geschlossen.}
+  \end{itemize}
+  \makePostamble
+\end{document}

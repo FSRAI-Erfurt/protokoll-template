@@ -1,0 +1,70 @@
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage[left=3cm, right=3cm, top=2.5cm, bottom=2.5cm]{geometry}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage[onehalfspacing]{setspace}
+\usepackage{cancel}
+\usepackage[babel,german=quotes]{csquotes}
+\usepackage[ngerman]{translator}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xstring}
+\usepackage{booktabs}
+\usepackage{amssymb}
+\usepackage[ngerman, num]{isodate}
+\monthyearsepgerman{\,}{\,}
+\usepackage{tabulary}
+\usepackage{ifthen}
+\usepackage[automark,plainheadsepline,autooneside]{scrlayer-scrpage}
+\usepackage{lastpage}
+\usepackage{graphicx}
+\pagestyle{scrheadings}
+\clearpairofpagestyles
+
+% Add these lines for custom page numbering format
+\cfoot[\pagemark]{Seite \thepage\ / \pageref{LastPage}}
+\renewcommand{\pagemark}{\thepage}
+
+% Your document content goes here
+
+\renewcommand*{\headfont}{\upshape\sffamily\scriptsize}
+\renewcommand*{\footfont}{\normalfont\sffamily\small}
+
+\usepackage{xcolor,listings}
+\definecolor{comment}{rgb}{.15,.4,.15}     	% hellgruen
+
+% tableofcontents should use a heading: "Tagesordnung"
+\renewcaptionname{ngerman}{\contentsname}{Tagesordnung}
+
+% Hier kann jetzt alles für die verwendete Sprache eingestellt werden
+% Der lstset-Befehl ermöglicht haufenweise Einstellungen zur Formatierung
+
+\lstset{language=C++,                            % hier Sprache einstellen
+	basicstyle={\small} ,                        % Schriftgröße
+	keywordstyle=\color{blue!80!black!100},      % Farbe der keywords
+	identifierstyle=,                            % Bezeichnerstyle, hier leer
+	commentstyle=\color{green!50!black!100},     % Farbe der Kommentare
+	stringstyle=\ttfamily,                       % Aussehen der Strings
+	breaklines=true,                             % Automatische Zeilenumbrüche
+	numbers=left,                                % Zeilennummerierung links
+	numberstyle=\small,                          % Größe der Zeilennummerierung
+	frame=single,                                % einfacher Rahmen
+	backgroundcolor=\color{blue!3},              % Hintergrundfarbe
+	caption={Code},                              % Standardüberschrift
+	captionpos=t,                                % Überschift oben (top)
+	showspaces=false,							 % Leerzeichen nicht anzeigen
+	showstringspaces=false,						 % Stringleerzeichen nicht anzeigen
+	literate=
+	{Ä}{{\"A}}1
+	{Ö}{{\"O}}1
+	{Ü}{{\"U}}1
+	{ß}{{\ss}}1
+	{ä}{{\"a}}1
+	{ö}{{\"o}}1
+	{ü}{{\"u}}1
+	{~}{{\textasciitilde}}1
+}
