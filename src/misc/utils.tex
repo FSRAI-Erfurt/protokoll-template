@@ -11,6 +11,8 @@
 \newcommand{\meetingNext}{\meetingNextDate, \meetingNextTime}
 \newcommand{\meetingAttendence}{}
 \newcommand{\meetingAttendenceMax}{}
+\newcommand{\approvalTO}{}
+\newcommand{\approvalProtocol}{}
 
 % set Meta Information
 \newcommand{\setWhere}      [1]{\renewcommand{\where}{#1}}
@@ -23,14 +25,14 @@
 \newcommand{\setNextDate}   [1]{\renewcommand{\meetingNextDate}{#1}}
 \newcommand{\setAttendence} [1]{\renewcommand{\meetingAttendence}{#1}}
 \newcommand{\setAttendenceMax} [1]{\renewcommand{\meetingAttendenceMax}{#1}}
-
+\newcommand{\setApprovalTO} [1]{\renewcommand{\approvalTO}{#1}}
+\newcommand{\setApprovalProtocol} [1]{\renewcommand{\approvalProtocol}{#1}}
 
 % Helper Functions
 
 % \quorum
 % Check if the meeting can make decisions
 % If more than 50% of the members are present, the meeting is quorate
-% If less than 50% of the members are present, the meeting is not quorate
 %
 % Usage:
 % \quorum
@@ -96,26 +98,6 @@
     \end{spacing}
 }
 
-% \approveTO
-% Print the approval of the TO
-% 
-% Usage:
-% \approveTO{NUMBER_OF_APPROVALS}
-\newcommand{\approveTO}[1]{
-  Die vorliegende Tagesordnung wird mit \textbf{#1 von \meetingAttendence} stimmberechtigten FsR-Mitgliedern beschlossen.
-}
-
-% Print TO Apporval with Changed TO
-%
-% Usage:
-% \approveTOwithChange{NUMBER_OF_APPROVALS}{CHANGED_POINTS}
-\newcommand{\approveTOwithChange}[2]{
-  Die vorliegende Tagesordnung wird mit \textbf{#1 von \meetingAttendence} stimmberechtigten FsR-Mitgliedern beschlossen. 
-
-  Die Tagesordnung wird um folgende Punkte ergänzt: \\ \\
-  #2
-}
-
 % \makeResolution
 % Print a resolution result with the given values
 %
@@ -123,6 +105,15 @@
 % \makeResolution{TOPIC}{COUNT_YES}{COUNT_NO}{COUNT_ABSTAIN}
 \newcommand{\makeResolution}[4]{
   \textbf{Beschluss:} #1 ? \textbf{(#2|#3|#4)}
+}
+
+% \makeQuote
+% Print a quote from a attendee
+%
+% Usage:
+% \makeQuote{NAME}{QUOTE}
+\newcommand{\makeQuote}[2]{
+  \textbf{#1:} \textsf{#2}
 }
 
 % \addAttendee
