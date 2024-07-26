@@ -16,23 +16,12 @@ parskip=half-,              % Abstand nach Absatz
   \makeTitle
   \makePreamble
   \tableofcontents
-
-  % Adding attendees
-  % Generating attendance tables
   \makeAttendance
-	\newpage
-  
-  % Formalia
-  \input{src/sections/formalia.tex}
+  \newpage
 
-  % Protocol Body
-  \input{src/sections/body.tex}
+  \input{src/sections/formalia}
+  \input{src/sections/body}
+  \input{src/sections/closing}
 
-  % Schlusswort
-  \addTopic{Schlusswort}
-  \begin{itemize}
-    \item {Die nächste Sitzung findet am \textbf{\meetingNext} statt.}
-    \item {Die Sitzung wird um \textbf{\meetingEndTime} von \textbf{\chair} geschlossen.}
-  \end{itemize}
   \makePostamble
 \end{document}
