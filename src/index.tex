@@ -9,7 +9,7 @@ parskip=half-,              % Abstand nach Absatz
 
 \input{src/misc/preamble}
 \input{src/misc/utils}
-\input{src/data}
+\input{src/metadata}
 
 % Title Page.
 \begin{document}
@@ -18,25 +18,15 @@ parskip=half-,              % Abstand nach Absatz
   \tableofcontents
 
   % Adding attendees
-
   % Generating attendance tables
   \makeAttendance
-
 	\newpage
-
+  
   % Formalia
-  \addTopic{Formalia}
-  \begin{itemize}
-    \item {Die Sitzung wird um \textbf{\meetingStartTime \space Uhr} von \textbf{\chair} eröffnet.}
-    \item {Festlegung Protokollant*in: \\ \\
-      \textbf{\recorder} übernimmt die Protokollführung.}
-    \item {Beschlussfähigkeit Feststellen: \\ \\
-      Durch \textbf{\chair} wird festgestellt, dass
-      \textbf{\meetingAttendence} von \textbf{\meetingAttendenceMax}
-      stimmberechtigten FsR-Mitgliedern anwesend sind, somit \textbf{\quorum .}}
-  \end{itemize}
+  \input{src/sections/formalia.tex}
 
-  \input{src/protocol}
+  % Protocol Body
+  \input{src/sections/body.tex}
 
   % Schlusswort
   \addTopic{Schlusswort}

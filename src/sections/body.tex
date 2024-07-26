@@ -1,0 +1,26 @@
+% addTopic erzeugt einen neuen Tagesordnungspunkt
+% \addTopic{TOPIC TITLE}
+\addTopic{Beispiel}
+
+% Content kann einfach geschrieben werden
+% Formatierung wird automatisch übernommen
+
+Das ist ein Beispiel Tagesordnungspunkt.
+
+\begin{itemize}
+  \item so könnt 
+  \item ihr Dinge 
+  \item Aufzählen 
+\end{itemize}
+
+% \makeResolution erzeugt einen Sauberen Beschlussvorschlag
+% \makeResolution{Topic}{approval}{against}{abstention}
+\makeResolution{Soll dieses Beispiel Beschlossen werden}{\meetingAttendence}{0}{0}
+
+% \makeQuote erzeugt ein Zitat
+% \makeQuote{Autor}{Zitat}
+\makeQuote{Luke}{Das ist ein Zitat}
+
+% \addTopic{TOPIC TITLE} fügt automatisch einen neuen Tagesordnungspunkt hinzu
+\addTopic{Nächster Tagesordnungspunkt}
+Das ist ein weiterer Tagesordnungspunkt.

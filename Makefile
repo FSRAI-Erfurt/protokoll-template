@@ -24,7 +24,7 @@ MAKEFLAGS += --silent
 LATEX != command -v pdflatex
 BUILD_DIR := build
 SRC_DIR := src
-LATEX_FILE := $(SRC_DIR)/main.tex
+LATEX_FILE := $(SRC_DIR)/index.tex
 
 #HELP: Builds the latex document
 build:
