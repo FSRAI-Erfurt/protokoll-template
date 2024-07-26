@@ -22,6 +22,7 @@
 \usepackage[automark,plainheadsepline,autooneside]{scrlayer-scrpage}
 \usepackage{lastpage}
 \usepackage{graphicx}
+\usepackage{pgf}
 \pagestyle{scrheadings}
 \clearpairofpagestyles
 
@@ -68,3 +69,23 @@
 	{ü}{{\"u}}1
 	{~}{{\textasciitilde}}1
 }
+
+% Define counters for attendance
+\newcounter{elected}
+\newcounter{electedattending}
+\newcounter{substitute}
+\newcounter{volunteer}
+\newcounter{guest}
+
+% Token lists to store table rows
+\newtoks\electedRows
+\newtoks\substituteRows
+\newtoks\volunteerRows
+\newtoks\guestRows
+
+% Initialize token lists
+\electedRows={}
+\substituteRows={}
+\volunteerRows={}
+\guestRows={}
+

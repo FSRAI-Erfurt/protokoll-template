@@ -24,30 +24,49 @@
 \newcommand{\setAttendence} [1]{\renewcommand{\meetingAttendence}{#1}}
 \newcommand{\setAttendenceMax} [1]{\renewcommand{\meetingAttendenceMax}{#1}}
 
-% quorum: beschlussfähig or nicht beschlussfähig
-% beschlussfähig: meetingAttendence > meetingAttendenceMax / 2
+
+% Helper Functions
+
+% \quorum
+% Check if the meeting can make decisions
+% If more than 50% of the members are present, the meeting is quorate
+% If less than 50% of the members are present, the meeting is not quorate
+%
+% Usage:
+% \quorum
 \newcommand{\quorum}{
-    \ifnum\meetingAttendence>\meetingAttendenceMax/2
-        beschlussfähig
-    \else
-        nicht beschlussfähig
-    \fi
+  % Calculate the quorum
+  \pgfmathsetmacro{\quorum}{\meetingAttendence/\meetingAttendenceMax}
+  % Check if the quorum is greater than 0.5
+  \pgfmathparse{ifthenelse(\quorum > 0.5, "Beschlussfähig", "Nicht Beschlussfähig")}
+  \pgfmathresult
 }
 
-% Topics
+% \addTopic
+% Add a new topic to the protocol with the given title
+%
+% Usage:
+% \addTopic{TOPIC TITLE}
 \newcounter{topiccounter}
 \newcommand{\addTopic}[1]{
     \stepcounter{topiccounter}
     \addsec{TOP \arabic{topiccounter} - #1}
 }
 
-% Title
+% \makeTitle
+% Print the Title of the protocol
+%
+% Usage:
+% \makeTitle
 \newcommand{\makeTitle}{
   \section*{\centering\huge Fachschaftsratssitzung am \meetingDate}
-  \vspace{0.5cm}
 }
 
-% Preamble
+% \makePreamble
+% Print the Preamble of the protocol
+%
+% Usage:
+% \makePreamble
 \newcommand{\makePreamble}{
     \begin{multicols}{2}
         Datum: \meetingDate \\
@@ -59,7 +78,11 @@
     \end{multicols}
 }
 
-% Postamble
+% \makePostamble
+% Print the Postamble of the protocol
+%
+% Usage:
+% \makePostamble
 \newcommand{\makePostamble}{
     \vspace{2.5cm}
     \begin{spacing}{0.3}
@@ -73,4 +96,122 @@
     \end{spacing}
 }
 
+% \approveTO
+% Print the approval of the TO
+% 
+% Usage:
+% \approveTO{NUMBER_OF_APPROVALS}
+\newcommand{\approveTO}[1]{
+  Die vorliegende Tagesordnung wird mit \textbf{#1 von \meetingAttendence} stimmberechtigten FsR-Mitgliedern beschlossen.
+}
 
+% Print TO Apporval with Changed TO
+%
+% Usage:
+% \approveTOwithChange{NUMBER_OF_APPROVALS}{CHANGED_POINTS}
+\newcommand{\approveTOwithChange}[2]{
+  Die vorliegende Tagesordnung wird mit \textbf{#1 von \meetingAttendence} stimmberechtigten FsR-Mitgliedern beschlossen. 
+
+  Die Tagesordnung wird um folgende Punkte ergänzt: \\ \\
+  #2
+}
+
+% \makeResolution
+% Print a resolution result with the given values
+%
+% Usage:
+% \makeResolution{TOPIC}{COUNT_YES}{COUNT_NO}{COUNT_ABSTAIN}
+\newcommand{\makeResolution}[4]{
+  \textbf{Beschluss:} #1 ? \textbf{(#2|#3|#4)}
+}
+
+% \addAttendee
+% Add an attendee to the protocol
+%
+% Usage:
+% \addAttendee{NAME}{TYPE}{ATTENDING}{COMMENT}
+\newcommand{\addAttendee}[4]{%
+    \IfStrEq{#2}{elected}{%
+        \stepcounter{elected}%
+        \addElectedAttendee{#1}{#3}{#4}%
+        \ifthenelse{#3=1}{\stepcounter{electedattending}}{}%
+    }{}%
+    \IfStrEq{#2}{substitute}{%
+        \stepcounter{substitute}%
+        \addSubstituteAttendee{#1}{#3}{#4}%
+    }{}%
+    \IfStrEq{#2}{volunteer}{%
+        \stepcounter{volunteer}%
+        \addVolunteerAttendee{#1}{#3}{#4}%
+    }{}%
+    \IfStrEq{#2}{guest}{%
+        \stepcounter{guest}%
+        \addGuestAttendee{#1}{#3}{#4}%
+    }{}%
+}
+
+% Command to make attendance tables
+% 
+% Usage:
+% \makeAttendance
+\newcommand{\makeAttendance}{%
+    \section*{Anwesendheit}
+
+    \ifthenelse{\value{elected} > 0}{%
+	      \begin{tabularx}{\textwidth}{|p{4cm}|c|c|X|}
+        \hline
+        \textbf{Name} & \textbf{Anwesend} & \textbf{Abwesend} & \textbf{Bemerkung} \\
+        \hline
+        \the\electedRows
+        \end{tabularx}
+        \vspace{1em}
+        \setAttendence{\theelectedattending}
+        \setAttendenceMax{\theelected}
+    }{}
+
+    \ifthenelse{\value{substitute} > 0}{%
+        \begin{tabularx}{\textwidth}{|p{4cm}|c|c|X|}
+        \hline
+        \textbf{Name} & \textbf{Anwesend} & \textbf{Abwesend} & \textbf{Bemerkung} \\
+        \hline
+        \the\substituteRows
+        \end{tabularx}
+    }{}
+    
+    \ifthenelse{\value{volunteer} > 0}{%
+        \begin{tabularx}{\textwidth}{|p{4cm}|c|c|X|}
+        \hline
+        \textbf{Name} & \textbf{Anwesend} & \textbf{Abwesend} & \textbf{Bemerkung} \\
+        \hline
+        \the\volunteerRows
+        \end{tabularx}
+    }{}
+
+    \ifthenelse{\value{guest} > 0}{%
+        \begin{tabularx}{\textwidth}{|p{4cm}|c|c|X|}
+        \hline
+        \textbf{Name} & \textbf{Anwesend} & \textbf{Abwesend} & \textbf{Bemerkung} \\
+        \hline
+        \the\guestRows
+        \end{tabularx}
+    }{}
+}
+
+% Command to add an attendee to the elected table
+\newcommand{\addElectedAttendee}[3]{%
+    \electedRows=\expandafter{\the\electedRows #1 & \ifthenelse{#2=1}{\checkmark}{} & \ifthenelse{#2=1}{}{\checkmark} & #3 \\ \hline}%
+}
+
+% Command to add an attendee to the substitute table
+\newcommand{\addSubstituteAttendee}[3]{%
+    \substituteRows=\expandafter{\the\substituteRows #1 & \ifthenelse{#2=1}{\checkmark}{} & \ifthenelse{#2=1}{}{\checkmark} & #3 \\ \hline}%
+}
+
+% Command to add an attendee to the volunteer table
+\newcommand{\addVolunteerAttendee}[3]{%
+    \volunteerRows=\expandafter{\the\volunteerRows #1 & \ifthenelse{#2=1}{\checkmark}{} & \ifthenelse{#2=1}{}{\checkmark} & #3 \\ \hline}%
+}
+% Command to add an attendee to the guest table
+\newcommand{\addGuestAttendee}[3]{%
+    \guestRows=\expandafter{\the\guestRows #1 & \ifthenelse{#2=1}{\checkmark}{} & \ifthenelse{#2=1}{}{\checkmark} & #3 \\ \hline}%
+}
